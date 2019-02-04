@@ -90,9 +90,8 @@ print(f"____________________________________")
 #create the output file
 output_file = os.path.join("Election_Results_Summary.txt")
 
+#write results to txt file
 with open(output_file,"w") as file:
-
-# Write methods to print to Elections_Results_Summary 
     file.write(f"Election Results" + "\n")
     file.write(f"____________________________________" + "\n")
     file.write(f"Total Votes: {total_votes}" + "\n")

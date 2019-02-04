@@ -25,38 +25,37 @@ import csv
 #load csv
 csvpath = os.path.join("budget_data.csv")
 
-# Variables to Track
+#variables
 total_months = 0
 total_PL = 0
-
 prev_PL = 0
 PL_change = 0
+avg_change = 0
 greatest_increase = ["", 0]
 greatest_decrease = ["", 9999]
-
 PL_changes = []
 
-# Read File
+#read file
 with open(csvpath, newline='') as PL_data:
     csvreader = csv.DictReader(PL_data, delimiter=',')
 
-    # Loop through all the rows of data we collect
+    #start loop
     for row in csvreader:
 
-        # Calculate the totals
+        #totals
         total_months = total_months + 1
         total_PL = total_PL + int(row["Profit/Losses"])
         # print(row)
 
-        # Keep track of changes
+        #deltas
         PL_change = int(row["Profit/Losses"]) - prev_PL
         # print(PL_change)
 
-        # Reset the value of prev_PL to the row I completed my analysis
+        #reset prev_PL
         prev_PL = int(row["Profit/Losses"])
         # print(prev_PL)
 
-        # Determine the greatest increase
+        #deteermine greatest increase and deecrease using deltas
         if (PL_change > greatest_increase[1]):
             greatest_increase[1] = PL_change
             greatest_increase[0] = row["Date"]
@@ -65,13 +64,16 @@ with open(csvpath, newline='') as PL_data:
             greatest_decrease[1] = PL_change
             greatest_decrease[0] = row["Date"]
 
-        # Add to the PL_changes list
+        #add deltas to list
         PL_changes.append(int(row["Profit/Losses"]))
 
-    # Set the PL average
+        #calc avg change
+        avg_change = str(round(sum(PL_changes) / len(PL_changes)))
+
+    #calc PL avg
     PL_avg = sum(PL_changes) / len(PL_changes)
     
-    # # Show Output
+    #print values
     print()
     print()
     print()
@@ -79,12 +81,11 @@ with open(csvpath, newline='') as PL_data:
     print("__________________________________________________________________")
     print("Total Months: " + str(total_months))
     print("Total PL: " + "$" + str(total_PL))
-    print("Average Change: " + "$" + str(round(sum(PL_changes) / len(PL_changes),2)))
+    print("Average Change: " + "$" + str(avg_change))
     print("Greatest Increase: " + str(greatest_increase[0]) + " ($" +  str(greatest_increase[1]) + ")") 
     print("Greatest Decrease: " + str(greatest_decrease[0]) + " ($" +  str(greatest_decrease[1]) + ")")
 
-    # output to a text file
-
+    #output values to text file
     file = open("totals.txt","w")
     file.write("Financial Analysis" + "\n")
     file.write("__________________________________________________________________" + "\n")
