@@ -91,7 +91,7 @@ with open(csvpath, newline='') as PL_data:
     file.write("__________________________________________________________________" + "\n")
     file.write("Total Months: " + str(total_months) + "\n")
     file.write("Total PL: " + "$" + str(total_PL) + "\n")
-    file.write("Average Change: " + "$" + str(round(sum(PL_changes) / len(PL_changes),2)) + "\n")
+    file.write("Average Change: " + "$" + str(avg_change) + "\n")
     file.write("Greatest Increase: " + str(greatest_increase[0]) + " ($" +  str(greatest_increase[1]) + "\n")
     file.write("Greatest Decrease: " + str(greatest_decrease[0]) + " ($" +  str(greatest_decrease[1]) + "\n")
     file.close()
